@@ -16,7 +16,9 @@ const useGeoLocation = () => {
         setError("Permission to access location was denied")
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      // android 에서 accuracy 가 없으면 아래 에러가 남
+      // -> Location provider is unavailable. Make sure that location services are enabled.
+      let location = await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.High});
       setLocation(location);
     } catch (e) {
       console.error(e)
